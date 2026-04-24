@@ -57,13 +57,13 @@ elif menu == "Update":
 
        if st.button("Update"):
 
-       df.loc[row, "First Name"] = first
-       df.loc[row, "Last Name"] = last
-       df.loc[row, "Address"] = address
-       df.loc[row, "Phone"] = phone
+           df.loc[row, "First Name"] = first
+           df.loc[row, "Last Name"] = last
+           df.loc[row, "Address"] = address
+           df.loc[row, "Phone"] = phone
 
-       df.to_csv("contacts.csv", index=False)
-       st.success("Contact updated successfully")
+           df.to_csv("contacts.csv", index=False)
+           st.success("Contact updated successfully")
 # ---------------- DELETE ----------------
 elif menu == "Delete":
     st.subheader("Delete Contact")
