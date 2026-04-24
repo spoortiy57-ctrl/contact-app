@@ -47,28 +47,23 @@ elif menu == "Update":
     selected = st.selectbox("Select Email", emails)
 
     if selected:
-        row = df[df["Email"] == selected].index[0]
+       row = df[df["Email"] == selected].index[0]
 
-        first = st.text_input("First Name", df.at[row, "First Name"])
-        last = st.text_input("Last Name", df.at[row, "Last Name"])
-        address = st.text_input("Address", df.at[row, "Address"])
-        phone = st.text_input("Phone", df.at[row, "Phone"])
+       # Pre-fill existing data
+       first = st.text_input("First Name", df.at[row, "First Name"])
+       last = st.text_input("Last Name", df.at[row, "Last Name"])
+       address = st.text_input("Address", df.at[row, "Address"])
+       phone = st.text_input("Phone", df.at[row, "Phone"])
 
-        if st.button("Update"):
+       if st.button("Update"):
 
-             index = df[df["First Name"] == first].index.tolist()
-             
-             if len(index) > 0:
-                row = index[0]
+       df.loc[row, "First Name"] = first
+       df.loc[row, "Last Name"] = last
+       df.loc[row, "Address"] = address
+       df.loc[row, "Phone"] = phone
 
-                df.loc[index[0], "Address"] = address
-                df.loc[index[0], "Phone"] = phone
-
-                df.to_csv("contacts.csv", index=False)
-                st.success("Contact updated successfully!")
-             else:
-                st.error("Contact not found")
-            
+       df.to_csv("contacts.csv", index=False)
+       st.success("Contact updated successfully")
 # ---------------- DELETE ----------------
 elif menu == "Delete":
     st.subheader("Delete Contact")
