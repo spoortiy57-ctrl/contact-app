@@ -4,74 +4,86 @@ import os
 
 FILE = "contacts.csv"
 
-# Load data
-if os.path.exists(FILE):
-    df = pd.read_csv(FILE)
-else:
-    df = pd.DataFrame(columns=["First Name", "Last Name", "Address", "Email", "Phone"])
+st.title("Contact Management System")
 
-st.title("📇 Contact Management App")
+# Create CSV if not exists
+if not os.path.exists(FILE):
+    df = pd.DataFrame(columns=["First Name","Last Name","Address","Email","Phone"])
+    df.to_csv(FILE, index=False)
 
-menu = st.sidebar.selectbox("Menu", ["Add", "View", "Update", "Delete"])
+# Load contacts
+df = pd.read_csv(FILE)
 
-# ---------------- ADD ----------------
-if menu == "Add":
-    st.subheader("Add Contact")
+# ---------------- VIEW CONTACTS ----------------
+st.header("View Contacts")
+st.dataframe(df)
 
-    first = st.text_input("First Name")
-    last = st.text_input("Last Name")
-    address = st.text_input("Address")
-    email = st.text_input("Email")
-    phone = st.text_input("Phone")
+# ---------------- ADD CONTACT ----------------
+st.header("Add Contact")
 
-    if st.button("Save"):
-        if first and email and phone:
-            new_data = pd.DataFrame([[first, last, address, email, phone]],
-                                    columns=df.columns)
-            df = pd.concat([df, new_data], ignore_index=True)
-            df.to_csv(FILE, index=False)
-            st.success("Contact Saved!")
-        else:
-            st.error("Please fill required fields")
+first = st.text_input("First Name")
+last = st.text_input("Last Name")
+address = st.text_input("Address")
+email = st.text_input("Email")
+phone = st.text_input("Phone")
 
-# ---------------- VIEW ----------------
-elif menu == "View":
-    st.subheader("All Contacts")
-    st.dataframe(df)
+if st.button("Add Contact"):
+    new_contact = {
+        "First Name": first,
+        "Last Name": last,
+        "Address": address,
+        "Email": email,
+        "Phone": phone
+    }
 
-# ---------------- UPDATE ----------------
-elif menu == "Update":
-    st.subheader("Update Contact")
+    df = pd.concat([df, pd.DataFrame([new_contact])], ignore_index=True)
+    df.to_csv(FILE, index=False)
 
-    emails = df["Email"].tolist()
-    selected = st.selectbox("Select Email", emails)
+    st.success("Contact added successfully")
 
-    if selected:
-       row = df[df["Email"] == selected].index[0]
+# ---------------- UPDATE CONTACT ----------------
+st.header("Update Contact")
 
-       # Pre-fill existing data
-       first = st.text_input("First Name", df.at[row, "First Name"])
-       last = st.text_input("Last Name", df.at[row, "Last Name"])
-       address = st.text_input("Address", df.at[row, "Address"])
-       phone = st.text_input("Phone", df.at[row, "Phone"])
+update_name = st.text_input("Enter First Name to Update")
+new_address = st.text_input("New Address")
+new_phone = st.text_input("New Phone")
 
-       if st.button("Update"):
+if st.button("Update Contact"):
 
-           df.loc[row, "First Name"] = first
-           df.loc[row, "Last Name"] = last
-           df.loc[row, "Address"] = address
-           df.loc[row, "Phone"] = phone
+    rows = df[df["First Name"] == update_name]
 
-           df.to_csv("contacts.csv", index=False)
-           st.success("Contact updated successfully")
-# ---------------- DELETE ----------------
-elif menu == "Delete":
-    st.subheader("Delete Contact")
+    if len(rows) > 0:
 
-    emails = df["Email"].tolist()
-    selected = st.selectbox("Select Email", emails)
+        index = rows.index[0]
 
-    if st.button("Delete"):
-        df = df[df["Email"] != selected]
+        if new_address != "":
+        df.loc[index, "Address"] = new_address
+
+        if new_phone != "":
+        df.loc[index, "Phone"] = new_phone
+
         df.to_csv(FILE, index=False)
-        st.success("Deleted!")
+
+        st.success("Contact updated")
+
+    else:
+        st.error("Contact not found")
+
+# ---------------- DELETE CONTACT ----------------
+st.header("Delete Contact")
+
+delete_name = st.text_input("Enter First Name to Delete")
+
+if st.button("Delete Contact"):
+
+    rows = df[df["First Name"] == delete_name]
+
+    if len(rows) > 0:
+
+        df = df[df["First Name"] != delete_name]
+        df.to_csv(FILE, index=False)
+
+        st.success("Contact deleted")
+
+    else:
+        st.error("Contact not found")
