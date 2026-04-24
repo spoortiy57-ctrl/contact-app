@@ -55,13 +55,18 @@ elif menu == "Update":
         phone = st.text_input("Phone", df.at[row, "Phone"])
 
         if st.button("Update"):
-            df.at[row, "First Name"] = first
-            df.at[row, "Last Name"] = last
-            df.at[row, "Address"] = address
-            df.at[row, "Phone"] = phone
-            df.to_csv(FILE, index=False)
-            st.success("Updated!")
 
+             index = df[df["Name"] == name].index
+
+             if len(index) > 0:
+                df.loc[index[0], "Address"] = address
+                df.loc[index[0], "Phone"] = phone
+
+                df.to_csv("contacts.csv", index=False)
+                st.success("Contact updated successfully!")
+             else:
+                st.error("Contact not found")
+            
 # ---------------- DELETE ----------------
 elif menu == "Delete":
     st.subheader("Delete Contact")
