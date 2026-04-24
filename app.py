@@ -5,11 +5,11 @@ import os
 FILE = "contacts.csv"
 
 # Load data
-if os.path.exists(FILE):
-    df = pd.read_csv(FILE)
-else:
+if not os.path.exists(FILE):
     df = pd.DataFrame(columns=["First Name", "Last Name", "Address", "Email", "Phone"])
-
+    df.to_csv(FILE, index=False)
+    
+df = pd.read_csv(FILE)
 st.title("📇 Contact Management App")
 
 menu = st.sidebar.selectbox("Menu", ["Add", "View", "Update", "Delete"])
