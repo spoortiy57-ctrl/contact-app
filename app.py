@@ -57,10 +57,10 @@ if st.button("Update Contact"):
         index = rows.index[0]
 
         if new_address != "":
-        df.loc[index, "Address"] = new_address
+            df.loc[index, "Address"] = new_address
 
         if new_phone != "":
-        df.loc[index, "Phone"] = new_phone
+            df.loc[index, "Phone"] = new_phone
 
         df.to_csv(FILE, index=False)
 
