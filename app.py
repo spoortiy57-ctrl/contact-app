@@ -56,7 +56,7 @@ elif menu == "Update":
 
         if st.button("Update"):
 
-             index = df[df["Name"] == name].index
+             index = df[df["name"] == name].index
 
              if len(index) > 0:
                 df.loc[index[0], "Address"] = address
