@@ -70,17 +70,18 @@ elif menu == "Add Contact":
               st.error("Phone must be 10 digits")
 
             else:
-            
-                # Duplicate check
-                duplicate = df[
-                    (df["First Name"].str.strip().str.lower() == first.strip().lower()) &
-                    (df["Last Name"].str.strip().str.lower() == last.strip().lower()) &
-                    (df["Phone"].astype(str).str.strip() == phone.strip())
-                ]
-      
-                if not duplicate.empty:
+                # Create key for new entry
+                new_key = create_key(first, last, phone)
+
+                # Create keys for existing data
+                df["key"] = df.apply(
+                    lambda x: create_key(x["First Name"], x["Last Name"], str(x["Phone"])),
+                    axis=1
+                )
+
+                if new_key in df["key"].values:
                     st.error("Contact already exists")
-      
+            
                 else:
 
                     new_row = {
