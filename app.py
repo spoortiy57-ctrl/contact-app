@@ -63,30 +63,30 @@ if st.button("Add Contact"):
 
       else:
             
-          # Duplicate check
-          duplicate = df[
-              (df["First Name"] == first) &
-              (df["Last Name"] == last) &
-              (df["Phone"] == phone)
-          ]
+            # Duplicate check
+            duplicate = df[
+                (df["First Name"] == first) &
+                (df["Last Name"] == last) &
+                (df["Phone"] == phone)
+            ]
       
-          if not duplicate.empty:
-              st.error("Contact already exists")
+            if not duplicate.empty:
+                st.error("Contact already exists")
       
-          else:
+            else:
 
-              new_row = {
-                  "First Name": first,
-                  "Last Name": last,
-                  "Address": address,
-                  "Email": email,
-                  "Phone": phone
-            }
+                new_row = {
+                    "First Name": first,
+                    "Last Name": last,
+                    "Address": address,
+                    "Email": email,
+                    "Phone": phone
+                }
 
-            df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
-            df.to_csv(FILE, index=False)
+                df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+                df.to_csv(FILE, index=False)
 
-            st.success("Contact added successfully")
+                st.success("Contact added successfully")
 
 # UPDATE
 elif menu == "Update Contact":
