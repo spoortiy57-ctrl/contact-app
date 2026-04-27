@@ -60,41 +60,41 @@ elif menu == "Add Contact":
             phone = phone.strip()
             email = email.strip()
 
-          if not first:
+            if not first:
               st.error("First name required")
 
-          elif not valid_email(email):
+            elif not valid_email(email):
               st.error("Enter valid email (example@domain.com)")
 
-          elif not valid_phone(phone):
+            elif not valid_phone(phone):
               st.error("Phone must be 10 digits")
 
-          else:
+            else:
             
-              # Duplicate check
-              duplicate = df[
-                  (df["First Name"].str.strip().str.lower() == first.strip().lower()) &
-                  (df["Last Name"].str.strip().str.lower() == last.strip().lower()) &
-                  (df["Phone"].astype(str).str.strip() == phone.strip())
-              ]
+                # Duplicate check
+                duplicate = df[
+                    (df["First Name"].str.strip().str.lower() == first.strip().lower()) &
+                    (df["Last Name"].str.strip().str.lower() == last.strip().lower()) &
+                    (df["Phone"].astype(str).str.strip() == phone.strip())
+                ]
       
-              if not duplicate.empty:
-                st.error("Contact already exists")
+                if not duplicate.empty:
+                    st.error("Contact already exists")
       
-              else:
+                else:
 
-                  new_row = {
-                      "First Name": first,
-                      "Last Name": last,
-                      "Address": address,
-                      "Email": email,
-                      "Phone": phone
-                  }
+                    new_row = {
+                        "First Name": first,
+                        "Last Name": last,
+                        "Address": address,
+                        "Email": email,
+                        "Phone": phone
+                    }
 
-                  df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
-                  df.to_csv(FILE, index=False)
+                    df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+                    df.to_csv(FILE, index=False)
 
-                  st.success("Contact added successfully")
+                    st.success("Contact added successfully")
 
 # UPDATE
 elif menu == "Update Contact":
