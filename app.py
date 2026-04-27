@@ -104,15 +104,20 @@ elif menu == "Update Contact":
 
             new_address = st.text_input("New Address", df.loc[index,"Address"])
             new_phone = st.text_input("New Phone", str(df.loc[index,"Phone"]))
+            new_email = st.text_input("New Email", str(df.loc[index,"Email"]))
 
             if st.button("Update Contact"):
 
                   if not valid_phone(new_phone):
                         st.error("Phone must be 10 digits")
+                        
+                  if not valid_email(email):
+                        st.error("Invalid email format (example: name@gmail.com)")
 
                   else:
                         df.loc[index,"Address"] = new_address
                         df.loc[index,"Phone"] = new_phone
+                        df.loc[index,"Email"] = new_email
 
                         df.to_csv(FILE, index=False)
 
