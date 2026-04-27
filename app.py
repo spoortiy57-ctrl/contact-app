@@ -14,8 +14,7 @@ if not os.path.exists(FILE):
       df = pd.DataFrame(columns=["First Name","Last Name","Address","Email","Phone"])
       df.to_csv(FILE, index=False)
 
-df = pd.read_csv(FILE)
-df["Phone"] = df["Phone"].astype(str)
+df = pd.read_csv(FILE, dtype={"Phone": str})
 
 # validation
 def valid_email(email):
@@ -77,7 +76,7 @@ elif menu == "Add Contact":
                     "Last Name": last,
                     "Address": address,
                     "Email": email,
-                    "Phone": phone
+                    "Phone": str(phone)
                 }
 
                 df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
@@ -117,7 +116,7 @@ elif menu == "Update Contact":
 
 
                   df.loc[index,"Address"] = new_address
-                  df.loc[index,"Phone"] = new_phone
+                  df.loc[index,"Phone"] = str(new_phone)
                   df.loc[index,"Email"] = new_email
 
                   df.to_csv(FILE, index=False)
