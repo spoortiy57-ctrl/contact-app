@@ -137,7 +137,7 @@ elif menu == "Delete Contact":
             )
 
       if st.button("Delete Contact"):
-          df = df[(df["First Name"] + " " + df["Last Name"]) != selected]
-          df.to_csv(FILE, index=False)
+            df = df[(df["First Name"] + " " + df["Last Name"]) != selected]
+            df.to_csv(FILE, index=False)
 
-          st.success("Contact deleted")
+            st.success("Contact deleted")
