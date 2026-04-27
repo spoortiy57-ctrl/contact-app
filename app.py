@@ -78,9 +78,10 @@ elif menu == "Add Contact":
                 new_key = create_key(first, last, phone)
 
                 # Create keys for existing data
-                df["key"] = df.apply(
-                    lambda x: create_key(x["First Name"], x["Last Name"], str(x["Phone"])),
-                    axis=1
+                df["key"] = (
+                    df["First Name"].astype(str).str.strip().str.lower() + "_" +
+                    df["Last Name"].astype(str).str.strip().str.lower() + "_" +
+                    df["Phone"].astype(str).str.strip()
                 )
 
                 if new_key in df["key"].values:
