@@ -56,15 +56,18 @@ elif menu == "Add Contact":
             
             df = pd.read_csv(FILE)
             
-            df["Phone"] = df["Phone"].astype(str)
-            
-            phone = str(phone)
-            
+            # create a unique string for each row
+            df["unique"] = (
+                df["First Name"].astype(str) +
+                df["Last Name"].astype(str) +
+                df["Phone"].astype(str)
+            )
+
+            # create unique string for input
+            new_unique = first + last + phone
+
             # check duplicate
-            if ((df["First Name"] == first) &
-                (df["Last Name"] == last) &
-                (df["Phone"].astype(str) == phone)).any():
- 
+            if new_unique in df["unique"].values:
                 st.error("Contact already exists")
             
             
