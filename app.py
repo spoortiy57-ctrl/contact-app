@@ -57,6 +57,14 @@ elif menu == "Add Contact":
             df = pd.read_csv(FILE, dtype={"Phone": str})
             
             df = df.astype(str)
+            
+            if not valid_email(email):
+                st.error("Invalid email format (example: name@gmail.com)")
+                st.stop()
+ 
+            if not valid_phone(phone):
+                st.error("Invalid phone number (must be 10 digits)")
+                st.stop()
 
             # check duplicate using list of tuples
             if (first, last, phone) in list(zip(df["First Name"], df["Last Name"], df["Phone"])):
