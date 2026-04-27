@@ -3,8 +3,6 @@ import pandas as pd
 import os
 import re
 
-def create_key(first, last, phone):
-    return f"{first.strip().lower()}_{last.strip().lower()}_{phone.strip()}"
 
 FILE = "contacts.csv"
 
@@ -59,8 +57,8 @@ elif menu == "Add Contact":
             df = pd.read_csv(FILE)
             df["Phone"] = df["Phone"].astype(str)
             
-            first = first.strip()
-            last = last.strip()
+            first = first.strip().lower()
+            last = last.strip().lower()
             phone = phone.strip()
             email = email.strip()
 
@@ -74,17 +72,18 @@ elif menu == "Add Contact":
               st.error("Phone must be 10 digits")
 
             else:
-                # Create key for new entry
-                new_key = create_key(first, last, phone)
+                df["First Name"] = df["First Name"].astype(str).str.strip().str.lower()
+                df["Last Name"] = df["Last Name"].astype(str).str.strip().str.lower()
+                df["Phone"] = df["Phone"].astype(str).str.strip()
 
-                # Create keys for existing data
-                df["key"] = (
-                    df["First Name"].astype(str).str.strip().str.lower() + "_" +
-                    df["Last Name"].astype(str).str.strip().str.lower() + "_" +
-                    df["Phone"].astype(str).str.strip()
-                )
+                # duplicate check
+                duplicate = df[
+                    (df["First Name"] == first) &
+                    (df["Last Name"] == last) &
+                    (df["Phone"] == phone)
+                ]
 
-                if new_key in df["key"].values:
+                if not duplicate.empty:
                     st.error("Contact already exists")
             
                 else:
