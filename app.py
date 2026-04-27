@@ -3,6 +3,9 @@ import pandas as pd
 import os
 import re
 
+def create_key(first, last, phone):
+    return f"{first.strip().lower()}_{last.strip().lower()}_{phone.strip()}"
+
 FILE = "contacts.csv"
 
 st.set_page_config(page_title="Contact Management System", layout="wide")
@@ -24,8 +27,6 @@ def valid_email(email):
 def valid_phone(phone):
       return phone.isdigit() and len(phone) == 10
       
-def create_key(first, last, phone):
-    return f"{first.strip().lower()}_{last.strip().lower()}_{phone.strip()}"
 
 menu = st.sidebar.selectbox(
       "Choose Action",
