@@ -110,18 +110,19 @@ elif menu == "Update Contact":
 
                   if not valid_phone(new_phone):
                         st.error("Phone must be 10 digits")
+                        st.stop()
                         
-                  if not valid_email(email):
+                  if not valid_email(new_email):
                         st.error("Invalid email format (example: name@gmail.com)")
 
-                  else:
-                        df.loc[index,"Address"] = new_address
-                        df.loc[index,"Phone"] = new_phone
-                        df.loc[index,"Email"] = new_email
 
-                        df.to_csv(FILE, index=False)
+                  df.loc[index,"Address"] = new_address
+                  df.loc[index,"Phone"] = new_phone
+                  df.loc[index,"Email"] = new_email
 
-                        st.success("Contact updated")
+                  df.to_csv(FILE, index=False)
+
+                  st.success("Contact updated")
 
 # DELETE
 elif menu == "Delete Contact":
