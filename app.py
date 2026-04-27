@@ -65,9 +65,9 @@ elif menu == "Add Contact":
             
               # Duplicate check
               duplicate = df[
-                  (df["First Name"] == first) &
-                  (df["Last Name"] == last) &
-                  (df["Phone"] == phone)
+                  (df["First Name"].str.strip().str.lower() == first.strip().lower()) &
+                  (df["Last Name"].str.strip().str.lower() == last.strip().lower()) &
+                  (df["Phone"].astype(str).str.strip() == phone.strip())
               ]
       
               if not duplicate.empty:
