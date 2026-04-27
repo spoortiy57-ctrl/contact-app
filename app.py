@@ -51,6 +51,14 @@ elif menu == "Add Contact":
       phone = st.text_input("Phone (10 digits)")
 
       if st.button("Add Contact"):
+            
+            df = pd.read_csv(FILE)
+            df["Phone"] = df["Phone"].astype(str)
+            
+            first = first.strip()
+            last = last.strip()
+            phone = phone.strip()
+            email = email.strip()
 
           if not first:
               st.error("First name required")
