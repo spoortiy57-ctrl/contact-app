@@ -56,6 +56,10 @@ elif menu == "Add Contact":
             
             df = pd.read_csv(FILE)
             
+            df["Phone"] = df["Phone"].astype(str)
+            
+            phone = str(phone)
+            
             # check duplicate
             if ((df["First Name"] == first) &
                 (df["Last Name"] == last) &
