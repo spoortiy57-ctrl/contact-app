@@ -61,7 +61,7 @@ elif menu == "Add Contact":
           elif not valid_phone(phone):
               st.error("Phone must be 10 digits")
 
-       else:
+      else:
             
             # Duplicate check
             duplicate = df[
