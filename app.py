@@ -23,6 +23,9 @@ def valid_email(email):
 
 def valid_phone(phone):
       return phone.isdigit() and len(phone) == 10
+      
+def create_key(first, last, phone):
+    return f"{first.strip().lower()}_{last.strip().lower()}_{phone.strip()}"
 
 menu = st.sidebar.selectbox(
       "Choose Action",
