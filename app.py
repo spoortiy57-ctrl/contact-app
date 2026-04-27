@@ -54,7 +54,7 @@ elif menu == "Add Contact":
 
       if st.button("Add Contact"):
             
-            df = pd.read_csv(FILE)
+            df = pd.read_csv(FILE, dtype={"Phone": str})
             
             df = df.astype(str)
 
