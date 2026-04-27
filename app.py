@@ -62,8 +62,20 @@ if st.button("Add Contact"):
             st.error("Phone must be 10 digits")
 
       else:
+            
+          # Duplicate check
+          duplicate = df[
+              (df["First Name"] == first) &
+              (df["Last Name"] == last) &
+              (df["Phone"] == phone)
+          ]
+      
+          if not duplicate.empty:
+              st.error("Contact already exists")
+      
+          else:
 
-            new_row = {
+              new_row = {
                   "First Name": first,
                   "Last Name": last,
                   "Address": address,
