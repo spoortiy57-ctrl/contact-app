@@ -50,18 +50,18 @@ elif menu == "Add Contact":
       email = st.text_input("Email (example@domain.com)")
       phone = st.text_input("Phone (10 digits)")
 
-if st.button("Add Contact"):
+      if st.button("Add Contact"):
 
-      if not first:
-            st.error("First name required")
+          if not first:
+              st.error("First name required")
 
-      elif not valid_email(email):
-            st.error("Enter valid email (example@domain.com)")
+          elif not valid_email(email):
+              st.error("Enter valid email (example@domain.com)")
 
-      elif not valid_phone(phone):
-            st.error("Phone must be 10 digits")
+          elif not valid_phone(phone):
+              st.error("Phone must be 10 digits")
 
-      else:
+       else:
             
             # Duplicate check
             duplicate = df[
