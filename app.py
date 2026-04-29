@@ -45,7 +45,7 @@ elif menu == "Add Contact":
 
       st.subheader("Add Contact")
 
-      first = st.text_input("GOOGLE")
+      first = st.text_input("First Name")
       last = st.text_input("Last Name")
       address = st.text_input("Address")
       email = st.text_input("gmail (example@domain.com)")
@@ -57,10 +57,7 @@ elif menu == "Add Contact":
             
             df = df.astype(str)
 
-            if not valid_first(first):
-                  st.error("Google is NOT a valid First Name")
-                  st.stop()
-                  
+            
             if not valid_email(email):
                 st.error("Invalid email format (example: name@gmail.com)")
                 st.stop()
