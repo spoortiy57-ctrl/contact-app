@@ -45,10 +45,10 @@ elif menu == "Add Contact":
 
       st.subheader("Add Contact")
 
-      first = st.text_input("First Name")
+      first = st.text_input("GOOGLE")
       last = st.text_input("Last Name")
       address = st.text_input("Address")
-      email = st.text_input("Email (example@domain.com)")
+      email = st.text_input("gmail (example@domain.com)")
       phone = st.text_input("Phone (10 digits)")
 
       if st.button("Add Contact"):
