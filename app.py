@@ -56,7 +56,11 @@ elif menu == "Add Contact":
             df = pd.read_csv(FILE, dtype={"Phone": str})
             
             df = df.astype(str)
-            
+
+            if not valid_first(first):
+                  st.error("Google is NOT a valid First Name")
+                  st.stop()
+                  
             if not valid_email(email):
                 st.error("Invalid email format (example: name@gmail.com)")
                 st.stop()
